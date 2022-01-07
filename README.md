@@ -30,6 +30,7 @@ Document Contents
 * [System requirements](#SystemRequirements)
 * [Compiling](#Compiling)
 * [Bugs](#Bugs)
+* [UTM Installation on M1 Mac](#UTM Installation on M1 Mac)
 * [Execution](#Execution)
 * [Tools directory](#ToolsDirectory)
 * [Build log](#BuildLog)
@@ -258,6 +259,55 @@ Sorry I don't have the instructions at hand to do this.
 
 * You could convert the CImg.h function calls to use OpenCV directly. Sorry I don't have a guide for how
 to do that.
+
+<a name="UTM Installation on M1 Mac"></a>
+## UTM Installation on M1 Mac
+
+* Install UTM
+* Download Ubuntu server .iso file for M1 (ARM64)
+* In UTM, confirm System >> Architecture = ARM64. I originally chose a drive size of 20 GB, but ran out of space during the first simulation.  Most recently attempted with 250GB.
+
+* Install Ubuntu from .iso
+* Used mostly default settings, and installed ssh
+* Get to prompt after installation
+* sudo apt update
+* If needed:
+* sudo apt upgrade
+* supo apt install tasksel
+* sudo tasksel install ubuntu-desktop
+
+Install virtual drivers
+sudo apt install spice-vdagent spice-webdavd
+Shut down
+
+In UTM
+Sharing >> Enable Directory Sharing
+Display >> Fit To Screen
+Display >> Retina Mode
+
+Clone the repository
+
+"make" does not work immediately - probably because the settings reference a linkage that doesn't exist
+
+sudo apt install codeblocks
+
+Open project
+Project >> Build Options >> biosim4 - modify Linker settings to reference local libraries:
+/usr/lib/aarch64-linux-gnu/libopencv_core.so
+/usr/lib/aarch64-linux-gnu/libopencv_video.so
+/usr/lib/aarch64-linux-gnu/libopencv_videoio.so
+
+Move linker option -fopenmp to biosim4 from Debug
+
+Install python-igraph
+sudo apt install python3-pip
+pip install igraph
+
+Upgrade cimg-dev
+sudo apt upgrade cimg-dev
+
+Upgrade gnuplot
+sudo apt upgrade gnuplot
 
 <a name="Execution"></a>
 ## Execution
